@@ -16,6 +16,7 @@ spec:
     server: https://kubernetes.default.svc # el mismo clúster donde corre ArgoCD
     namespace: dev # donde se despliega tu app
   syncPolicy:
-    automated: {}
+    automated:
+      selfHeal: true # ArgoCD corrige los cambios manuales en el clúster
     syncOptions:
     - CreateNamespace=true # crea el namespace dev si no existe
