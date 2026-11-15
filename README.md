@@ -1,37 +1,30 @@
-# Helm chart de NGINX
+# gitops-lab
 
-Chart Helm propio para desplegar NGINX en Kubernetes.
+Repo de práctica de GitOps con Helm y Argo CD.
 
-## Requisitos
-
-- Kubernetes 1.23+
-- Helm 3+
-
-## Instalar
-
-Desarrollo:
-
-```sh
-helm upgrade --install nginx ./charts/nginx \
-  --namespace nginx-dev \
-  --create-namespace \
-  -f ./charts/nginx/values-dev.yaml
+```
+charts/mi-app/          Chart Helm de la app (nginx)
+  values.yaml           Valores por defecto
+  values-dev.yaml       Lo que cambia en dev
+  values-prod.yaml      Lo que cambia en prod
+  templates/            Deployment y Service
+argocd/apps/            Definiciones de Application de Argo CD
 ```
 
-Producción:
+## Probar el chart localmente
 
 ```sh
-helm upgrade --install nginx ./charts/nginx \
-  --namespace nginx-prod \
-  --create-namespace \
-  -f ./charts/nginx/values-prod.yaml
+helm template mi-app ./charts/mi-app -f ./charts/mi-app/values-dev.yaml
+helm template mi-app ./charts/mi-app -f ./charts/mi-app/values-prod.yaml
 ```
 
-Los valores específicos de entorno sobrescriben los valores comunes de `values.yaml`.
-Para validar el chart antes de instalarlo:
+## Desplegar con Argo CD
+
+1. Sube este repo a GitHub/GitLab y cambia `repoURL` en `argocd/apps/mi-app-dev.yaml`.
+2. Aplica la Application:
 
 ```sh
-helm lint ./charts/nginx
-helm template nginx ./charts/nginx -f ./charts/nginx/values-dev.yaml
-helm template nginx ./charts/nginx -f ./charts/nginx/values-prod.yaml
+kubectl apply -f argocd/apps/mi-app-dev.yaml
 ```
+
+Argo CD sincroniza el chart con `values-dev.yaml` en el namespace `mi-app-dev`.
