@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/<tu-usuario>/gitops-lab.git
+    repoURL: https://github.com/EstebanJS/gitops-lab.git
     targetRevision: main # rama, tag o commit que ArgoCD vigila
     path: charts/mi-app # carpeta del chart dentro del repo
     helm:
