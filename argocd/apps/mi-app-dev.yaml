@@ -18,5 +18,6 @@ spec:
   syncPolicy:
     automated:
       selfHeal: true # ArgoCD corrige los cambios manuales en el clúster
+      prune: true # ArgoCD borra recursos que ya no están en el repo
     syncOptions:
     - CreateNamespace=true # crea el namespace dev si no existe
