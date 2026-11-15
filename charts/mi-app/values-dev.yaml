@@ -1,2 +1,4 @@
 replicaCount: 2
 env: dev
+image:
+  tag: "9.99"
