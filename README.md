@@ -20,7 +20,7 @@ helm template mi-app ./charts/mi-app -f ./charts/mi-app/values-prod.yaml
 
 ## Desplegar con Argo CD
 
-1. Sube este repo a GitHub/GitLab y cambia `repoURL` en `argocd/apps/mi-app-dev.yaml`.
+1. El repo está en https://github.com/EstebanJS/gitops-lab (ya configurado en `repoURL`).
 2. Aplica la Application:
 
 ```sh

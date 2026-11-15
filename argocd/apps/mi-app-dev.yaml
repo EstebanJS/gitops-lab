@@ -2,23 +2,19 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: mi-app-dev
-  namespace: argocd
+  namespace: argocd # las Application SIEMPRE viven en el namespace de ArgoCD
 spec:
   project: default
   source:
-    # Cambia esto por la URL de tu repo cuando lo subas a GitHub/GitLab
-    repoURL: https://github.com/TU-USUARIO/gitops-lab.git
-    targetRevision: main
-    path: charts/mi-app
+    repoURL: https://github.com/<tu-usuario>/gitops-lab.git
+    targetRevision: main # rama, tag o commit que ArgoCD vigila
+    path: charts/mi-app # carpeta del chart dentro del repo
     helm:
       valueFiles:
-        - values-dev.yaml
+      - values-dev.yaml # ruta RELATIVA al path del chart
   destination:
-    server: https://kubernetes.default.svc
-    namespace: mi-app-dev
+    server: https://kubernetes.default.svc # el mismo clúster donde corre ArgoCD
+    namespace: dev # donde se despliega tu app
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
     syncOptions:
-      - CreateNamespace=true
+    - CreateNamespace=true # crea el namespace dev si no existe
