@@ -16,5 +16,6 @@ spec:
     server: https://kubernetes.default.svc # el mismo clúster donde corre ArgoCD
     namespace: dev # donde se despliega tu app
   syncPolicy:
+    automated: {}
     syncOptions:
     - CreateNamespace=true # crea el namespace dev si no existe
